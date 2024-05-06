@@ -1,0 +1,33 @@
+@import "/src/styles/colors";
+
+
+.inputBox {
+
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  gap: 1rem;
+
+  padding: 1rem 1rem 1rem 2.4rem;
+
+  border-radius: 4.2rem;
+  background-color: $inputBackgroundColor;
+
+  align-items: center;
+
+  cursor: text;
+  height: 5.6rem;
+}
+
+.input {
+  background-color: $inputBackgroundColor;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: $textColor;
+}
+
+.icon {
+  cursor: pointer;
+  width: 2.4rem;
+  height: 2.4rem;
+}

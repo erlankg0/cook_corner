@@ -1,0 +1,20 @@
+@import "src/styles/colors";
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  font-size: 1.4rem;
+  line-height: 2.1rem;
+  margin: 0 auto;
+}
+
+.text {
+  font-weight: 400;
+}
+
+.actionText {
+  font-weight: 500;
+  color: $colorPrimary;
+  text-decoration: none;
+}

@@ -1,0 +1,29 @@
+@import "src/styles/colors";
+@import "src/styles/typography";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  background-color: $colorPrimary;
+
+  align-items: center;
+  justify-content: center;
+  height: 30rem;
+}
+
+.text {
+  max-width: 35rem;
+  width: 100%;
+  max-height: 12rem;
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 6rem;
+  color: $textColorWhite;
+}
+
