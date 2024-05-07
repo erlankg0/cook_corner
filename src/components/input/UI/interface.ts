@@ -4,5 +4,6 @@ export interface IInput {
     onClick?: () => void;
     placeholder: string,
     name: string,
-    type: "email" | "password",
+    type: "email" | "password" | "text",
+    img?: string,
 }

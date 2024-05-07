@@ -1,10 +1,9 @@
-import et from "@assets/icons/mail.svg";
 
 import styles from "./input.module.scss";
 import React from "react";
 import {IInput} from "@components/input/UI/interface.ts";
 
-const Input: React.FC<IInput> = ({value, type, placeholder, name}) => {
+const Input: React.FC<IInput> = ({value, type, placeholder, name, img}) => {
     return (
         <div className={styles.inputBox}>
             <input
@@ -15,7 +14,7 @@ const Input: React.FC<IInput> = ({value, type, placeholder, name}) => {
                 className={styles.input}
                 name={name}
             />
-            <img src={et} alt={'et for mail'} className={styles.icon}/>
+            <img src={img} alt={'et for mail'} className={styles.icon}/>
         </div>
     )
 }
