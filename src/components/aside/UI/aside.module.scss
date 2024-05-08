@@ -1,0 +1,10 @@
+@import "src/styles/colors";
+
+.aside {
+  grid-column: 1 / 2;
+  grid-row: 1/ -1;
+  background-color: $inputBackgroundColor;
+
+  display: flex;
+  flex-direction: column;
+}

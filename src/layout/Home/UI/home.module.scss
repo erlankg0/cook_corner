@@ -1,0 +1,79 @@
+@import "src/styles/colors";
+
+.content {
+  display: grid;
+  grid-template-columns: 9.6rem 1fr;
+
+  grid-column: 1 / -1;
+}
+
+
+.body {
+  grid-column: 2 / -1;
+  padding: 0 3.2rem;
+  display: grid;
+  grid-template-rows: repeat(2, 10rem) 1fr;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3.2rem 0;
+  grid-row: 1 / 2;
+
+  &__title {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+}
+
+.category {
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+
+  &__title {
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    gap: 6.4rem;
+  }
+
+  &__link {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.7rem;
+    color: #666666;
+
+    &.active {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      color: $textColor;
+
+      &::after {
+        content: '';
+        background-color: #343434;
+        width: 3.2rem;
+        height: .2rem;
+        margin: 0 auto;
+        border-radius: 1px;
+      }
+    }
+  }
+
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+  grid-row: 3 / -1;
+}
