@@ -1,7 +1,7 @@
 import styles from "./like.module.scss"
 
-import loved from "@assets/icons/loved.svg"
-import unlove from "@assets/icons/unLove.svg";
+import loved from "@assets/icons/liked.svg"
+import unlove from "@assets/icons/unliked.svg";
 
 import {useState} from "react";
 

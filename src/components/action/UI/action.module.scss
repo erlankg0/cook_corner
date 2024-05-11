@@ -1,0 +1,19 @@
+.action {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+
+  align-items: center;
+
+
+  &__image {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+  }
+}

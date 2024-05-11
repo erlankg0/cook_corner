@@ -5,7 +5,7 @@ import Aside from "@components/aside/UI/aside.tsx";
 
 const Home = () => {
     return (
-        <main className={styles.content}>
+        <div className={styles.content}>
             <Aside/>
             <div className={styles.body}>
                 <section className={styles.user}>
@@ -30,9 +30,13 @@ const Home = () => {
                     <Card image={card}/>
                     <Card image={card}/>
                     <Card image={card}/>
+                    <Card image={card}/>
+                    <Card image={card}/>
+                    <Card image={card}/>
+                    <Card image={card}/>
                 </section>
             </div>
-        </main>
+        </div>
     )
 }
 

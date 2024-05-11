@@ -1,0 +1,24 @@
+@import "src/styles/colors";
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b0aeae;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+
+  c
+  &.active {
+    background-color: $colorPrimary;
+  }
+
+  &__image {
+    width: 2.4rem;
+    height: 2.4rem;
+    fill: $colorPrimary;
+  }
+}

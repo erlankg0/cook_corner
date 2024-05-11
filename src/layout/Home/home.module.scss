@@ -3,8 +3,7 @@
 .content {
   display: grid;
   grid-template-columns: 9.6rem 1fr;
-
-  grid-column: 1 / -1;
+  height: 100vh;
 }
 
 
@@ -74,6 +73,9 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
   gap: 1.6rem;
   grid-row: 3 / -1;
+
+  padding: 3.2rem 0;
 }

@@ -2,9 +2,25 @@
 
 .aside {
   grid-column: 1 / 2;
-  grid-row: 1/ -1;
+  grid-row: 1 / -1;
   background-color: $inputBackgroundColor;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 10rem 1fr 20rem;
+
+  &__navigations {
+    grid-row: 2 / 3;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding: 3rem 0;
+  }
+
+  &__out {
+    grid-row: 3 / -1;
+    align-self: self-end;
+    padding: 1rem;
+  }
 }
