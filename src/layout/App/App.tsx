@@ -5,12 +5,14 @@ import Detail from "@layout/Detail/detail.tsx";
 import {Route, Routes} from "react-router-dom";
 
 import styles from './App.module.scss';
+import Greeting from "@layout/Greeting/greeting.tsx";
 
 const App = () => {
     return (
         <div className={styles.content}>
             <Routes>
-                <Route path={'/'} element={<Auth/>}/>
+                <Route path={'/'} element={<Greeting/>}/>
+                <Route path={'/auth'} element={<Auth/>}/>
                 <Route path={'/registration'} element={<Registration/>}/>
                 <Route path={'/home'} element={<Home/>}/>
                 <Route path={'/detail'} element={<Detail/>}/>
