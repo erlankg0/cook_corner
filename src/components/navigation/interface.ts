@@ -1,3 +1,5 @@
 export interface INavigation {
-    image: string
+    image: string,
+    url?: string,
+    onClick?: () => void,
 }

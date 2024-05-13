@@ -13,10 +13,8 @@ const Card: React.FC<ICard> = ({image}) => {
                 <h2 className={styles.card__title}>Egg Omlet</h2>
                 <p className={styles.card__author}>by Erlan Abdraimov</p>
                 <div className={styles.card__actions}>
-                    <Action type={"like"} count={1}/>
-                    <Action type={"follow"} count={0}/>
-                    {/*<Like/>*/}
-                    {/*<Follow/>*/}
+                    <Action isDetail={false} type={"like"} count={1}/>
+                    <Action isDetail={false} type={"follow"} count={0}/>
                 </div>
             </div>
         </div>

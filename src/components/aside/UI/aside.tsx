@@ -12,9 +12,9 @@ const Aside = () => {
         <aside className={styles.aside}>
             <Logo/>
             <div className={styles.aside__navigations}>
-                <Navigation image={home}/>
-                <Navigation image={search}/>
-                <Navigation image={people}/>
+                <Navigation url={''} image={home}/>
+                <Navigation url={'search'} image={search}/>
+                <Navigation url={'logout'} image={people}/>
             </div>
             <div className={styles.aside__out}>
                 <Navigation image={logout}/>

@@ -1,0 +1,50 @@
+.container {
+  display: grid;
+  grid-template-columns: 9.6rem 1fr;
+  height: 100vh;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20rem 1fr 10rem;
+  gap: 2rem;
+
+  padding: 3.2rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    grid-row: 1 / 2;
+  }
+
+  &__body {
+    grid-row: 2 / 3;
+  }
+
+  &__footer {
+    grid-row: 3 / -1;
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  text-align: center;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  gap: 1.6rem;
+  justify-content: center;
+
+  background-color: #FFF6DE;
+  padding: .8rem 0;
+  max-width: 48rem;
+  width: 100%;
+  border-radius: 1.5rem;
+  margin: 0 auto;
+}

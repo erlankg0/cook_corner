@@ -1,0 +1,19 @@
+@import "src/styles/colors";
+
+.button {
+  max-width: 22.2rem;
+  width: 100%;
+  border-radius: 10rem;
+  padding: .4rem 1rem;
+  text-align: center;
+  background-color: #FFF6DE;
+  border: none;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 2.8rem;
+
+  &.action {
+    background-color: $colorPrimary;
+    color: $textColorWhite;
+  }
+}

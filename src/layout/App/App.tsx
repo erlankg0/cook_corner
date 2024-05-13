@@ -6,6 +6,7 @@ import {Route, Routes} from "react-router-dom";
 
 import styles from './App.module.scss';
 import Greeting from "@layout/Greeting/greeting.tsx";
+import SearchPage from "@layout/SearchPage/searchPage.tsx";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path={'/registration'} element={<Registration/>}/>
                 <Route path={'/home'} element={<Home/>}/>
                 <Route path={'/detail'} element={<Detail/>}/>
+                <Route path={'/search'} element={<SearchPage/>}/>
             </Routes>
         </div>
     )

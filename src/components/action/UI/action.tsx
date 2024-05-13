@@ -10,7 +10,8 @@ import {IAction} from "@components/action/interface.ts";
 
 const Action: React.FC<IAction> = ({
                                        type,
-                                       count
+                                       count,
+                                       isDetail,
                                    }) => {
     const [follow, setFollow] = useState<boolean>(false)
     const [image, setImage] = useState<string>(liked)
@@ -36,7 +37,7 @@ const Action: React.FC<IAction> = ({
     return (
         <div className={styles.action} onClick={handleOnClickFollowing}>
             <img className={styles.action__image} src={image} alt={`button ${type}`}/>
-            <p className={styles.action__text}>{count}</p>
+            <p className={styles.action__text}>{isDetail ? `${count} likes` : count} </p>
         </div>
     )
 }
