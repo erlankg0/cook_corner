@@ -37,6 +37,9 @@
       ],
       "@styles/*": [
         "styles/*"
+      ],
+      "@redux/*": [
+        "redux/*"
       ]
     }
   },

@@ -1,9 +1,10 @@
-export interface IInput {
-    value: string,
-    onChange?: (values: string) => void,
-    onClick?: () => void;
+import {FieldProps, FormikProps} from "formik";
+
+export interface IInput<T> {
     placeholder: string,
-    name: string,
     type: "email" | "password" | "text",
     img?: string,
+    name: string,
+    field: FieldProps['field'],
+    form: FormikProps<T>
 }

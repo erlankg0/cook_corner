@@ -3,6 +3,7 @@ import styles from "./search.module.scss"
 import Category from "@components/category/UI/category.tsx";
 import {useState} from "react";
 import SearchInput from "@components/searchInput/UI/searchInput.tsx";
+import ButtonRecipes from "@components/buttonRecepes/UI/buttonRecipes.tsx";
 
 const SearchPage = () => {
     const [select, setSelect] = useState<boolean>(false);
@@ -25,7 +26,7 @@ const SearchPage = () => {
                     body
                 </div>
                 <div className={styles.content__footer}>
-                    footer
+                    <ButtonRecipes/>
                 </div>
             </section>
         </main>

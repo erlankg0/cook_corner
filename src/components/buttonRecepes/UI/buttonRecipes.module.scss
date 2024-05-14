@@ -1,0 +1,16 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 480rem;
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  &__image {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}

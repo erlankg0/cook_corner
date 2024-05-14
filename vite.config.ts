@@ -11,6 +11,7 @@ export default defineConfig({
             "@assets": "/src/assets",
             "@layout": "/src/layout",
             "@styles": "/src/styles",
+            "@redux": "/src/redux",
         }
     }
 })
