@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 
 
-const auth = (email: string, password: string): Promise<AxiosResponse>=> {
+const auth = (email: string, password: string): Promise<AxiosResponse> => {
     const data = {
         email: email,
         password: password

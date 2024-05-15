@@ -40,7 +40,7 @@ const Auth = () => {
                         password: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
                     onSubmit={() => {
-                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r))
+                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r)).catch((e)=> console.log(e))
                     }}
 
                 >

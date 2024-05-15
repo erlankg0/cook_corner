@@ -5,7 +5,7 @@ import search from "@assets/icons/search.svg";
 
 import {ISearchInput} from "@components/searchInput/interface.ts";
 
-const SearchInput: React.FC<ISearchInput> = ({text}) => {
+const SearchInput: React.FC<ISearchInput> = ({text, placeholder}) => {
     const [image, setImage] = useState<string>(search);
     const handleOnChange = () => {
         if (text.length >= 1) {
@@ -15,7 +15,7 @@ const SearchInput: React.FC<ISearchInput> = ({text}) => {
     }
     return (
         <div className={`${styles.inputBox} ${styles.active}`}>
-            <input className={styles.input} onChange={handleOnChange}/>
+            <input className={styles.input} onChange={handleOnChange} placeholder={placeholder}/>
             <img className={styles.icon} src={image} alt={'search image'}/>
         </div>
     )

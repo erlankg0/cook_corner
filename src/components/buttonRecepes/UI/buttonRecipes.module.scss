@@ -1,16 +1,35 @@
+@import "src/styles/colors";
+
 .button {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   padding: 1rem;
-  max-width: 480rem;
+  max-width: 48rem;
   width: 100%;
 
-  align-items: center;
+  align-items: end;
   justify-content: center;
+
+  margin: 0 auto;
+  background-color: $colorPrimary;
+  border: none;
+  border-radius: 4rem;
+  transition: all .3s ease-in-out;
+
+  &:active {
+    transform: translateY(0.3rem);
+  }
 
   &__image {
     width: 2.4rem;
     height: 2.4rem;
+  }
+
+  &__text {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: #fafafa;
   }
 }
