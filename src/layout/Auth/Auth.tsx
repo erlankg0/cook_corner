@@ -6,12 +6,12 @@ import Button from "@components/button/UI/button.tsx";
 import styles from './auth.module.scss'
 import SingLink from "@components/singLink/UI/singLink.tsx";
 import et from "@assets/icons/mail.svg";
-import {Formik, Form, Field} from "formik";
+import {Field, FieldProps, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setEmail, setPassword} from "@redux/reducer/auth.ts";
-import {FieldProps} from "formik";
 import {IAuth} from './interface.ts'
+import {auth} from "../../API/network.ts";
 
 
 const Auth = () => {
@@ -39,9 +39,8 @@ const Auth = () => {
                         email: Yup.string().required("Required field!").email("Invalid Email"),
                         password: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
-                    onSubmit={(values) => {
-                        console.log(values);
-                        console.log(email, password)
+                    onSubmit={() => {
+                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r))
                     }}
 
                 >
