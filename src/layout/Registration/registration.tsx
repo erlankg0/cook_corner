@@ -13,6 +13,7 @@ import et from "@assets/icons/mail.svg";
 import {Formik, Form, Field, FieldProps} from "formik";
 import * as Yup from "yup";
 import {IRegistration} from "@layout/Registration/interface.ts";
+import {IAuth} from "@layout/Auth/interface.ts";
 
 const Registration = () => {
     return (
@@ -44,8 +45,8 @@ const Registration = () => {
                                     name={'username'}
 
                                     value={values.username}
-                                    render={({field}: FieldProps<IRegistration>) => (
-                                        <Input form field={field} img={people} placeholder={'Your email please'}
+                                    render={({field, form}: FieldProps<IAuth>) => (
+                                        <Input form={form} field={field} img={people} placeholder={'Your email please'}
                                                type={'text'} name={field.name}
 
                                         />
@@ -62,8 +63,8 @@ const Registration = () => {
                                     name={'email'}
 
                                     value={values.email}
-                                    render={({field}: FieldProps<IRegistration>) => (
-                                        <Input form field={field} img={et} placeholder={'Your email please'}
+                                    render={({field, form}: FieldProps<IAuth>) => (
+                                        <Input form={form} field={field} img={et} placeholder={'Your email please'}
                                                type={'email'} name={field.name}
 
                                         />
@@ -79,8 +80,8 @@ const Registration = () => {
                                 <Field
                                     values={values.password}
                                     name={'password'}
-                                    render={({field}: FieldProps<IRegistration>) => (
-                                        <InputPassword form type={'password'} field={field}
+                                    render={({field, form}: FieldProps<IRegistration>) => (
+                                        <InputPassword form={form} type={'password'} field={field}
                                                        placeholder={'Введите ваш пароль'} name={field.name}/>
                                     )}
 
@@ -94,8 +95,8 @@ const Registration = () => {
                                 <Field
                                     values={values.repassword}
                                     name={'repassword'}
-                                    render={({field}: FieldProps<IRegistration>) => (
-                                        <InputPassword form type={'password'} field={field}
+                                    render={({field, form}: FieldProps<IRegistration>) => (
+                                        <InputPassword form={form} type={'password'} field={field}
                                                        placeholder={'Введите ваш пароль'} name={field.name}/>
                                     )}
 

@@ -1,8 +1,9 @@
 import styles from "./input.module.scss";
 import React from "react";
 import {IInput} from "@components/input/UI/interface.ts";
+import {IAuth} from "@layout/Auth/interface.ts";
 
-const Input: React.FC<IInput> = ({field, form, type, placeholder, img}) => {
+const Input: React.FC<IInput<IAuth>> = ({field, form, type, placeholder, img}) => {
     return (
         <div className={styles.inputBox}>
             <input

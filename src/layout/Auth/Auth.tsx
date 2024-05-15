@@ -55,8 +55,8 @@ const Auth = () => {
                                     name={'email'}
 
                                     value={values.email}
-                                    render={({field}: FieldProps<IAuth>) => (
-                                        <Input form field={field} img={et} placeholder={'Your email please'}
+                                    render={({field, form}: FieldProps<IAuth>) => (
+                                        <Input form={form} field={field} img={et} placeholder={'Your email please'}
                                                type={'email'} name={field.name}
 
                                         />
@@ -72,8 +72,8 @@ const Auth = () => {
                                 <Field
                                     values={values.password}
                                     name={'password'}
-                                    render={({field}: FieldProps<IAuth>) => (
-                                        <InputPassword form type={'password'} field={field}
+                                    render={({field, form}: FieldProps<IAuth>) => (
+                                        <InputPassword form={form} type={'password'} field={field}
                                                        placeholder={'Введите ваш пароль'} name={''}/>
                                     )}
 
