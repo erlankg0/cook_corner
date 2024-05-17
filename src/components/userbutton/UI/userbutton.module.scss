@@ -1,0 +1,19 @@
+@import "src/styles/colors";
+
+.button {
+  background-color: $colorSecondary;
+  border: none;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  color: $colorPrimary;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.7rem;
+
+  transition: all .3s ease-in-out;
+
+  &:active {
+    transform: translateY(.5rem);
+  }
+}

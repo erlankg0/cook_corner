@@ -3,3 +3,85 @@
   grid-template-columns: 9.6rem 1fr;
   height: 100vh;
 }
+
+.title {
+  font-weight: 500;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  text-align: center;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30rem 1fr;
+  gap: 2rem;
+
+  padding: 3.2rem;
+}
+
+.profile {
+  grid-row: 1 / 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  margin: 0 auto;
+
+  max-width: 80%;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__counter {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.saves {
+  grid-row: 2  / 3;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__text {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__title, &__paragraph {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+  }
+
+  &__title {
+    color: #8A8A8A;
+  }
+
+  &__paragraph {
+    color: #343434;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fit, 20rem);
+  gap: 1.6rem;
+}

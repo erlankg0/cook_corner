@@ -7,6 +7,7 @@ import {Route, Routes} from "react-router-dom";
 import styles from './App.module.scss';
 import Greeting from "@layout/Greeting/greeting.tsx";
 import SearchPage from "@layout/SearchPage/searchPage.tsx";
+import Profile from "@layout/Profile/profile.tsx";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path={'/home'} element={<Home/>}/>
                 <Route path={'/detail'} element={<Detail/>}/>
                 <Route path={'/search'} element={<SearchPage/>}/>
+                <Route path={'/profile'} element={<Profile/>}/>
             </Routes>
         </div>
     )
