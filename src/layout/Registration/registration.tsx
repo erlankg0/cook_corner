@@ -1,19 +1,21 @@
+// components
 import Header from "@components/header/UI/header.tsx";
 import Label from "@components/label/ui/label.tsx";
 import Input from "@components/input/UI/input.tsx";
 import InputPassword from "@components/input/UI/inputPassword.tsx";
 import Button from "@components/button/UI/button.tsx";
 import SingLink from "@components/singLink/UI/singLink.tsx";
+// Formik + Yup
+import {Formik, Form, Field, FieldProps} from "formik";
+import * as Yup from "yup";
+// utils interface
+import {IRegistration} from "@layout/Registration/interface.ts";
+import {IAuth} from "@layout/Auth/interface.ts";
 
 import styles from "./registration.module.scss";
 
 import people from "@assets/icons/people.svg";
 import et from "@assets/icons/mail.svg";
-
-import {Formik, Form, Field, FieldProps} from "formik";
-import * as Yup from "yup";
-import {IRegistration} from "@layout/Registration/interface.ts";
-import {IAuth} from "@layout/Auth/interface.ts";
 
 const Registration = () => {
     return (

@@ -1,13 +1,22 @@
+import {Modal} from "antd";
+import {useState} from "react";
+
 import Aside from "@components/aside/UI/aside.tsx";
-import styles from "./profile.module.scss"
 import UserPicture from "@components/userpic/UI/userpic.tsx";
 import UserCounter from "@components/usercounter/UI/usercounter.tsx";
 import Userinfo from "@components/userinfo/UI/userinfo.tsx";
 import UserButton from "@components/userbutton/UI/userbutton.tsx";
 import Card from "@components/card/UI/card.tsx";
+
+import styles from "./profile.module.scss";
 import image from "@assets/image/card3.jpg";
 
+
 const Profile = () => {
+    const [open, setOpen] = useState<boolean>(false);
+    const handleOnClickIsOpen = () => {
+        setOpen(!open);
+    }
     return (
         <main className={styles.content}>
             <Aside/>
@@ -26,7 +35,7 @@ const Profile = () => {
                                 title={'Sarthak Ranjan Hota'}
                                 paragraph={'I\'m a passionate chef who loves creating delicious dishes with flair.'}
                             />
-                            <UserButton onClick={() => console.log('click')}/>
+                            <UserButton onClick={handleOnClickIsOpen}/>
                         </div>
                     </div>
                 </div>
@@ -40,6 +49,16 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                open={open}
+                onCancel={handleOnClickIsOpen}
+                centered={true}
+                footer={null}
+            >
+                <div>
+
+                </div>
+            </Modal>
         </main>
     )
 }

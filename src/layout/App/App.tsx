@@ -1,13 +1,17 @@
+// layout
 import Auth from "@layout/Auth/Auth.tsx";
 import Registration from "@layout/Registration/registration.tsx";
 import Home from "@layout/Home/home.tsx";
 import Detail from "@layout/Detail/detail.tsx";
-import {Route, Routes} from "react-router-dom";
-
-import styles from './App.module.scss';
 import Greeting from "@layout/Greeting/greeting.tsx";
 import SearchPage from "@layout/SearchPage/searchPage.tsx";
 import Profile from "@layout/Profile/profile.tsx";
+
+// react router dom
+import {Route, Routes} from "react-router-dom";
+
+import styles from './App.module.scss';
+
 
 const App = () => {
     return (

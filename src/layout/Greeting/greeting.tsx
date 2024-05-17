@@ -1,9 +1,11 @@
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+// antd
+import {Progress} from "antd";
+
 import styles from "./greeting.module.scss"
 import logoImage from "@assets/icons/Logo.svg";
 
-import {Progress} from "antd";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 const Greeting = () => {
     const [percent, setPercent] = useState<number>(0);

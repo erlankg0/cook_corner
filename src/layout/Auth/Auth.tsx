@@ -1,20 +1,27 @@
+//components
 import Header from "@components/header/UI/header.tsx";
 import Input from "@components/input/UI/input.tsx";
 import InputPassword from "@components/input/UI/inputPassword.tsx";
 import Label from "@components/label/ui/label.tsx";
 import Button from "@components/button/UI/button.tsx";
-import styles from './auth.module.scss'
 import SingLink from "@components/singLink/UI/singLink.tsx";
-import et from "@assets/icons/mail.svg";
-import {Field, FieldProps, Form, Formik} from "formik";
-import * as Yup from 'yup';
+// redux
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setEmail, setPassword} from "@redux/reducer/auth.ts";
+// Formik + Yup
+import {Field, FieldProps, Form, Formik} from "formik";
+import * as Yup from 'yup';
+
 import {IAuth} from './interface.ts'
 import {auth} from "../../API/network.ts";
 
+import styles from './auth.module.scss'
+import et from "@assets/icons/mail.svg";
+import {useNavigate} from "react-router-dom";
 
 const Auth = () => {
+    const navigate = useNavigate();
+
     const email = useAppSelector(state => state.auth.email);
     const password = useAppSelector(state => state.auth.password)
     const dispatch = useAddDispatch();
@@ -40,7 +47,8 @@ const Auth = () => {
                         password: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
                     onSubmit={() => {
-                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r)).catch((e)=> console.log(e))
+                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r)).catch((e) => console.log(e));
+                        navigate('/home')
                     }}
 
                 >

@@ -1,7 +1,9 @@
+// components
 import Card from "@components/card/UI/card.tsx";
+import Aside from "@components/aside/UI/aside.tsx";
+
 import card from "@assets/image/card1.jpg";
 import styles from "./home.module.scss";
-import Aside from "@components/aside/UI/aside.tsx";
 
 const Home = () => {
     return (

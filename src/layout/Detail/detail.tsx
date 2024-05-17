@@ -1,8 +1,10 @@
+// components
 import Aside from "@components/aside/UI/aside.tsx";
-import styles from "./detail.module.scss";
-import imageBackground from "@assets/image/background.jpg";
 import Action from "@components/action/UI/action.tsx";
 import Ingredient from "@components/ingredient/UI/ingredient.tsx";
+
+import styles from "./detail.module.scss";
+import imageBackground from "@assets/image/background.jpg";
 
 const Detail = () => {
     return (

@@ -12,7 +12,7 @@ const Aside = () => {
         <aside className={styles.aside}>
             <Logo/>
             <div className={styles.aside__navigations}>
-                <Navigation url={''} image={home}/>
+                <Navigation url={'home'} image={home}/>
                 <Navigation url={'search'} image={search}/>
                 <Navigation url={'profile'} image={people}/>
             </div>
