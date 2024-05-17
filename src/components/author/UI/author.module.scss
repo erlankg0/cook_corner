@@ -1,0 +1,35 @@
+@import "src/styles/colors";
+
+.author {
+  width: 100%;
+  height: 100%;
+  background-color: $textColorWhite;
+  border-radius: 1.6rem;
+  padding: 4rem 4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 0 1rem .3rem rgba(0, 0, 0, 0.2); /* Это создает размытую тень */
+  transition: all .3s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &__image {
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    object-position: center;
+    object-fit: cover;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+}

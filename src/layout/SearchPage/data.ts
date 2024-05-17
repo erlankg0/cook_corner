@@ -1,4 +1,4 @@
-export default {
+export const cards = {
     "count": 5,
     "next": null,
     "previous": null,
@@ -50,6 +50,33 @@ export default {
         }
     ]
 }
+
+export const authors = [{
+    "id": 1,
+    "name": "Chef John",
+    "image": "https://example.com/images/chef_john.jpg"
+},
+    {
+        "id": 2,
+        "name": "Chef Priya",
+        "image": "https://example.com/images/chef_priya.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Chef Sato",
+        "image": "https://example.com/images/chef_sato.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Chef Maria",
+        "image": "https://example.com/images/chef_maria.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Chef Alexei",
+        "image": "https://example.com/images/chef_alexei.jpg"
+    }
+]
 
 export interface ICard {
     id: number,

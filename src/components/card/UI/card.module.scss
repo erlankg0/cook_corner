@@ -4,8 +4,13 @@
   width: 100%;
   height: 100%;
   border-radius: 1.5rem;
-
+  border: #ffffff solid .2rem;
   position: relative;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    border: #fa9e31 solid .2rem;
+  }
 
   &__image {
     width: 100%;
@@ -14,7 +19,6 @@
     object-fit: cover;
     border-radius: 1.5rem;
     cursor: pointer;
-
   }
 
   &__content {

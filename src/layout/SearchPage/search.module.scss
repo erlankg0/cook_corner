@@ -7,7 +7,7 @@
 .content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 20rem 1fr 10rem;
+  grid-template-rows: 20rem minmax(60rem, 1fr) 10rem;
   gap: 2rem;
 
   padding: 3.2rem;
@@ -48,4 +48,24 @@
   width: 100%;
   border-radius: 1.5rem;
   margin: 0 auto;
+}
+
+.results {
+  margin: 1rem 0;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 2.1rem;
+  color: #666666;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+}
+
+.authors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.6rem;
 }
