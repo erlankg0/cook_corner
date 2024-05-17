@@ -14,10 +14,10 @@ const Aside = () => {
             <div className={styles.aside__navigations}>
                 <Navigation url={''} image={home}/>
                 <Navigation url={'search'} image={search}/>
-                <Navigation url={'logout'} image={people}/>
+                <Navigation url={'profile'} image={people}/>
             </div>
             <div className={styles.aside__out}>
-                <Navigation image={logout}/>
+                <Navigation url={'logout'} image={logout}/>
             </div>
         </aside>
     )

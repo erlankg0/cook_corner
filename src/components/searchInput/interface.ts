@@ -1,5 +1,5 @@
 export interface ISearchInput {
-    text: string,
     placeholder: string,
-    onChange?: () => void,
+    search: string,
+    onChange: (value: string) => void,
 }

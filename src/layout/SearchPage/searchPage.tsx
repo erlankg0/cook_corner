@@ -1,16 +1,32 @@
+import {useEffect, useState} from "react";
+import {Modal} from "antd";
+
 import Aside from "@components/aside/UI/aside.tsx";
-import styles from "./search.module.scss"
 import Category from "@components/category/UI/category.tsx";
-import {useState} from "react";
 import SearchInput from "@components/searchInput/UI/searchInput.tsx";
 import ButtonRecipes from "@components/buttonRecepes/UI/buttonRecipes.tsx";
-import {Modal} from "antd";
 import PhotoUpload from "@components/photoUpload/UI/photoUpload.tsx";
 
+import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
+import {setSearch} from "@redux/reducer/search.ts";
+
+import styles from "./search.module.scss"
+import data, {ICard} from "./data.ts";
+
 const SearchPage = () => {
+    // redux
+
+    const dispatch = useAddDispatch();
+    const search = useAppSelector(state => state.search.search);
+
+    const handleSearchOnChange = (value: string): void => {
+        dispatch(setSearch(value));
+    }
+    // business
     const [chefsSelect, setChefsSelect] = useState<boolean>(true);
     const [recipesSelect, setRecipesSelect] = useState<boolean>(false)
     const [active, setActive] = useState<boolean>(false)
+
     const handleOnClickCategory = () => {
         setChefsSelect(!chefsSelect);
         setRecipesSelect(!recipesSelect)
@@ -18,6 +34,25 @@ const SearchPage = () => {
     const handleOnClickModule = () => {
         setActive(!active);
     }
+
+    // live search
+    const [cards, setCards] = useState<ICard[]>([]);
+    const handleFilter = (value: string, list: ICard[]) => {
+        if (!value) {
+            return list
+        }
+        return list.filter(({title}) => title.toLowerCase().includes(value.toLowerCase())
+        )
+    }
+
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const filteredList = handleFilter(search, data.results);
+            setCards(filteredList);
+        })
+
+        return () => clearTimeout(Debounce);
+    }, [search])
     return (
         <main className={styles.container}>
             <Aside/>
@@ -28,16 +63,16 @@ const SearchPage = () => {
                         <Category selected={chefsSelect} text={'Chefs'} onClick={handleOnClickCategory}/>
                         <Category selected={recipesSelect} text={'Recipes'} onClick={handleOnClickCategory}/>
                     </div>
-                    <SearchInput placeholder={'Поиск...'} text={''}/>
+                    <SearchInput placeholder={'Поиск...'} search={search} onChange={handleSearchOnChange}/>
                 </div>
                 <div className={styles.content__body}>
-                    body
+                    {cards.map((item) => (<p>{item.title}</p>))}
                 </div>
                 <div className={styles.content__footer}>
                     <ButtonRecipes onClick={handleOnClickModule}/>
                 </div>
                 <Modal
-                    visible={active}
+                    open={active}
                     onCancel={handleOnClickModule}
                     centered={true}
                     footer={null}
