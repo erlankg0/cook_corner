@@ -1,0 +1,16 @@
+@import "src/styles/colors";
+
+.button {
+  background-color: $colorPrimary;
+  width: 100%;
+  padding: .5rem;
+  text-align: center;
+  color: $textColorWhite;
+  border: none;
+  transition: all .3s ease-in-out;
+  border-radius: 1.5rem;
+
+  &:active {
+    transform: translateY(3px);
+  }
+}

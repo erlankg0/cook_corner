@@ -5,7 +5,6 @@ import Aside from "@components/aside/UI/aside.tsx";
 import Category from "@components/category/UI/category.tsx";
 import SearchInput from "@components/searchInput/UI/searchInput.tsx";
 import ButtonRecipes from "@components/buttonRecepes/UI/buttonRecipes.tsx";
-import PhotoUpload from "@components/photoUpload/UI/photoUpload.tsx";
 import Card from "@components/card/UI/card.tsx";
 import Author from "@components/author/UI/author.tsx";
 
@@ -13,10 +12,11 @@ import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setSearch} from "@redux/reducer/search.ts";
 
 import styles from "./search.module.scss"
-import {cards as data, authors, ICard} from "./data.ts";
+import {authors, cards as data, ICard} from "./data.ts";
 import {IAuthor} from "@components/author/interface.ts";
 
 import image from "@assets/image/card2.jpg";
+import FormModal from "@components/formModal/UI/form.tsx";
 
 const SearchPage = () => {
     // redux
@@ -68,8 +68,7 @@ const SearchPage = () => {
         }, 300);
 
         return () => clearTimeout(debounce);
-    }, [search]);
-
+    }, [search, chefsSelect, recipesSelect]);
 
     return (
         <main className={styles.container}>
@@ -86,10 +85,12 @@ const SearchPage = () => {
                 <div className={styles.content__body}>
                     <h2 className={styles.results}>Search Result</h2>
                     <div className={styles.cards}>
-                        {!recipesSelect && filteredResultsCards.map((card) => (<Card {...card} image={image}/>))}
+                        {!recipesSelect && filteredResultsCards.map((card) => (
+                            <Card key={card.id} {...card} image={image}/>))}
                     </div>
                     <div className={styles.authors}>
-                        {!chefsSelect && filteredResultsAuthors.map((author) => (<Author {...author}/>))}
+                        {!chefsSelect && filteredResultsAuthors.map((author) => (
+                            <Author key={author.id} {...author}/>))}
                     </div>
                 </div>
                 <div className={styles.content__footer}>
@@ -101,12 +102,7 @@ const SearchPage = () => {
                     centered={true}
                     footer={null}
                 >
-                    <div>
-                        <h2>Моя собственная верстка</h2>
-                        <p>Это ваше собственное содержимое модального окна.</p>
-                        <p>Вы можете добавить здесь любые элементы HTML и стили для настройки внешнего вида.</p>
-                        <PhotoUpload/>
-                    </div>
+                    <FormModal/>
                 </Modal>
             </section>
         </main>
