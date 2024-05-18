@@ -16,6 +16,8 @@ import styles from "./registration.module.scss";
 
 import people from "@assets/icons/people.svg";
 import et from "@assets/icons/mail.svg";
+// network
+import {registration} from "../../API/network.ts";
 
 const Registration = () => {
     return (
@@ -36,7 +38,14 @@ const Registration = () => {
                         repassword: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
                     onSubmit={(values) => {
-                        console.log(values);
+                        if (values.password == values.repassword) {
+                            registration(values.email, values.username, values.password).then((response) => {
+                                console.log(response.status);
+                                console.log(response.data);
+                            }).catch((error) => {
+                                console.log(error);
+                            })
+                        }
                     }}
                 >
                     {({values, touched, errors}) => (

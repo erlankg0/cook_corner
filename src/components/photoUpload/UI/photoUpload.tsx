@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {PlusOutlined} from '@ant-design/icons';
 import type {GetProp, UploadFile, UploadProps} from 'antd';
 import {Upload} from 'antd';
@@ -13,8 +13,7 @@ const getBase64 = (file: FileType): Promise<string> =>
         reader.onerror = (error) => reject(error);
     });
 
-const App: React.FC = () => {
-    const [file, setFile] = useState<UploadFile | null>(null);
+const App: React.FC<{file: UploadFile | null, setFile: (file: UploadFile)=> void}> = ({file, setFile}) => {
 
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {

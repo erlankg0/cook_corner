@@ -1,11 +1,23 @@
 // components
 import Card from "@components/card/UI/card.tsx";
 import Aside from "@components/aside/UI/aside.tsx";
-
-import card from "@assets/image/card1.jpg";
 import styles from "./home.module.scss";
+import {useEffect, useState} from "react";
+import {getCategories, getRecipes} from "../../API/network.ts";
+import {ICategories, IRecipe} from "../../API/interface.ts";
 
 const Home = () => {
+    const [categories, setCategories] = useState<ICategories[]>([])
+    const [recipes, setRecipes] = useState<IRecipe[]>([])
+    useEffect(() => {
+        getCategories().then((res) => {
+            setCategories(res.data);
+        }).catch((er) => console.log(er))
+        getRecipes().then((response) => {
+            setRecipes(response.data.results)
+        })
+    }, [categories])
+
     return (
         <div className={styles.content}>
             <Aside/>
@@ -18,24 +30,14 @@ const Home = () => {
                 <section className={styles.category}>
                     <h2 className={styles.category__title}>Category</h2>
                     <nav className={styles.category__nav}>
+                        {categories.map((category) => (
+                            <div className={`${styles.category__link} ${styles.active}`}>{category.name}</div>)
+                        )}
                         <div className={`${styles.category__link} ${styles.active}`}>Breakfast</div>
-                        <div className={styles.category__link}>Lunch</div>
-                        <div className={styles.category__link}>Dinner</div>
                     </nav>
                 </section>
                 <section className={styles.cards}>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
-                    <Card image={card}/>
+                    {recipes.map((recipe) => (<Card image={recipe.image} title={recipe.title}/>))}
                 </section>
             </div>
         </div>

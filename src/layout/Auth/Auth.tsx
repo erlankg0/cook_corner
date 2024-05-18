@@ -17,9 +17,11 @@ import {auth} from "../../API/network.ts";
 
 import styles from './auth.module.scss'
 import et from "@assets/icons/mail.svg";
+import {saveTokens} from "../../API/token.ts";
+import {useNavigate} from "react-router-dom";
 
 const Auth = () => {
-
+    const navigate = useNavigate();
     const email = useAppSelector(state => state.auth.email);
     const password = useAppSelector(state => state.auth.password)
     const dispatch = useAddDispatch();
@@ -44,8 +46,13 @@ const Auth = () => {
                         email: Yup.string().required("Required field!").email("Invalid Email"),
                         password: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
-                    onSubmit={() => {
-                        auth(email, password).then((r) => console.log(r)).catch((e) => console.log(e));
+                    onSubmit={(values) => {
+                        auth(values.email, values.password).then((response) => {
+                            if (response.statusText == 'OK') {
+                                saveTokens(response.data.access, response.data.refresh);
+                                navigate('/home');
+                            }
+                        }).catch((e) => console.log(e.data));
                     }}
 
                 >
