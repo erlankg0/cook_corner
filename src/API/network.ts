@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
-    baseURL: "http://atai-mamytov.click:8020/cookscorner/",
+    baseURL: "https://atai-mamytov.click/cookscorner",
     headers: {
         Accept: '*/*',
         "Content-Type": 'application/json',
@@ -15,7 +15,7 @@ const auth = (email: string, password: string): Promise<AxiosResponse> => {
         email: email,
         password: password
     }
-    return instance.post("users/login/", data);
+    return instance.post("/users/login/", data);
 }
 
 

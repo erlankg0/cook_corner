@@ -17,10 +17,8 @@ import {auth} from "../../API/network.ts";
 
 import styles from './auth.module.scss'
 import et from "@assets/icons/mail.svg";
-import {useNavigate} from "react-router-dom";
 
 const Auth = () => {
-    const navigate = useNavigate();
 
     const email = useAppSelector(state => state.auth.email);
     const password = useAppSelector(state => state.auth.password)
@@ -47,8 +45,7 @@ const Auth = () => {
                         password: Yup.string().required("Required field").min(6, "Password must be at less characters"),
                     })}
                     onSubmit={() => {
-                        auth('era.ab.02@gmail.com', '123321era').then((r) => console.log(r)).catch((e) => console.log(e));
-                        navigate('/home')
+                        auth(email, password).then((r) => console.log(r)).catch((e) => console.log(e));
                     }}
 
                 >

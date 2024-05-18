@@ -1,0 +1,19 @@
+@import "src/styles/colors";
+
+.upload {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background-color: $inputBackgroundColor;
+  border-radius: 1.5rem;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+
+  color: #343434;
+}

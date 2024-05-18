@@ -10,6 +10,7 @@ import Card from "@components/card/UI/card.tsx";
 
 import styles from "./profile.module.scss";
 import image from "@assets/image/card3.jpg";
+import ImageUpload from "@components/userPhotoUpload/UI/userimageupload.tsx";
 
 
 const Profile = () => {
@@ -56,7 +57,7 @@ const Profile = () => {
                 footer={null}
             >
                 <div>
-
+                    <ImageUpload/>
                 </div>
             </Modal>
         </main>
