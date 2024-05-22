@@ -1,4 +1,4 @@
 export interface IUserCounter {
-    count: number,
+    count: string,
     paragraph: string
 }

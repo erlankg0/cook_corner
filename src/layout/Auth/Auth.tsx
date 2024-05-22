@@ -17,8 +17,11 @@ import {auth} from "../../API/network.ts";
 
 import styles from './auth.module.scss'
 import et from "@assets/icons/mail.svg";
-import {saveTokens} from "../../API/token.ts";
+import {saveTokens, saveUserID} from "../../API/token.ts";
 import {useNavigate} from "react-router-dom";
+// toastify
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Auth = () => {
     const navigate = useNavigate();
@@ -31,6 +34,33 @@ const Auth = () => {
     }
     const handlePasswordOnChange = (password: string) => {
         dispatch((setPassword(password)));
+    }
+
+    const handleSuccessToasty = (message: string) => {
+        toast(<p>{message}</p>, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            type: "success"
+        })
+    }
+    const handleErrorToasty = (message: string) => {
+        toast(<p>{message}</p>, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            type: "error"
+        })
     }
 
     return (
@@ -48,11 +78,16 @@ const Auth = () => {
                     })}
                     onSubmit={(values) => {
                         auth(values.email, values.password).then((response) => {
+                            console.log(response)
                             if (response.statusText == 'OK') {
                                 saveTokens(response.data.access, response.data.refresh);
-                                navigate('/home');
+                                saveUserID(response.data.user);
+                                handleSuccessToasty("Success");
+                                setTimeout(() => {
+                                    navigate("/home")
+                                }, 2500)
                             }
-                        }).catch((e) => console.log(e.data));
+                        }).catch(() => handleErrorToasty("Ошибка авторизации"));
                     }}
 
                 >
@@ -99,10 +134,10 @@ const Auth = () => {
                     )}
                 </Formik>
                 <SingLink text={'I don’t have an account?'} actionText={'Sign Up Now'} url={'/registration'}/>
-
             </div>
-
+            <ToastContainer/>
         </div>
+
     )
 }
 

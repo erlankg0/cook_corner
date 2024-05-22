@@ -34,7 +34,7 @@ instance.interceptors.response.use(
             originalRequest._retry = true;
             clearTokens();
             // Дополнительно можно перенаправить пользователя на страницу логина
-            window.location.href = '/auth'; // Перенаправление на страницу логина
+            // window.location.href = '/auth'; // Перенаправление на страницу логина
         }
         return Promise.reject(error);
     }
@@ -54,8 +54,14 @@ const registration = (email: string, username: string, password: string) => {
         "email": email,
         "username": username,
         "password": password,
+        "photo": null,
+        "user_bio": null,
     }
-    return instance.post("users/registration/", data);
+    return instance.post("users/registration/", data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
 
 const getCategories = () => {
@@ -65,7 +71,9 @@ const getCategories = () => {
 const getRecipes = () => {
     return instance.get('recipes/')
 }
-
+const getUser = (id: string) => {
+    return instance.get(`users/profile/${id}/`)
+}
 const postRecipes = (title: string, author: number, description: string, category: number, cook__time: string, difficulty: string, ingredients: IIngredient[]) => {
     const data = {
         title: title,
@@ -79,5 +87,5 @@ const postRecipes = (title: string, author: number, description: string, categor
 
     return instance.post('recipes/create', data);
 }
-export {auth, registration, postRecipes}
-export {getCategories, getRecipes}
+export {auth, registration, postRecipes};
+export {getCategories, getRecipes, getUser};

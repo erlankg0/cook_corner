@@ -1,15 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import camera from "@assets/icons/camera.svg";
 import styles from "./userimageupload.module.scss"
+import {IImageUpload} from "@components/userform/interface.ts";
 
-const ImageUpload: React.FC = () => {
-    const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+const ImageUpload: React.FC<IImageUpload> = ({setFiles}) => {
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSelectedFiles(event.target.files);
+        setFiles(event.target.files);
     };
 
-    console.log(selectedFiles);
 
     return (
         <div>

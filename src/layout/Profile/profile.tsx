@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import Aside from "@components/aside/UI/aside.tsx";
 import UserPicture from "@components/userpic/UI/userpic.tsx";
@@ -10,14 +10,32 @@ import Card from "@components/card/UI/card.tsx";
 
 import styles from "./profile.module.scss";
 import image from "@assets/image/card3.jpg";
-import ImageUpload from "@components/userPhotoUpload/UI/userimageupload.tsx";
-
+import UserForm from "@components/userform/UI/userform.tsx";
+import {getUser} from "../../API/network.ts";
+import {getUserID} from "../../API/token.ts";
+import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
+import {IUser, setData} from "@redux/reducer/user.ts";
 
 const Profile = () => {
     const [open, setOpen] = useState<boolean>(false);
+    const followers = useAppSelector(state => state.user.count_followers);
+    const following = useAppSelector(state => state.user.count_following);
+    const count_recipes = useAppSelector(state => state.user.count_recipes);
+    const userName = useAppSelector(state => state.user.username);
+    const userBio = useAppSelector(state => state.user.user_bio);
     const handleOnClickIsOpen = () => {
         setOpen(!open);
     }
+    const dispatch = useAddDispatch();
+    const handleFillUseData = (values: IUser) => {
+        dispatch(setData(values))
+    }
+    useEffect(() => {
+        const id = getUserID();
+        if (id) {
+            getUser(id).then((response) => handleFillUseData(response.data)).catch(e => console.log(e));
+        }
+    }, [])
     return (
         <main className={styles.content}>
             <Aside/>
@@ -28,13 +46,13 @@ const Profile = () => {
                         <UserPicture/>
                         <div className={styles.user__info}>
                             <div className={styles.user__counter}>
-                                <UserCounter count={29} paragraph={'Recipes'} key={'recipes'}/>
-                                <UserCounter count={144} paragraph={'Followers'} key={'followers'}/>
-                                <UserCounter count={100} paragraph={'Following'} key={'following'}/>
+                                <UserCounter count={count_recipes} paragraph={'Recipes'} key={'recipes'}/>
+                                <UserCounter count={followers} paragraph={'Followers'} key={'followers'}/>
+                                <UserCounter count={following} paragraph={'Following'} key={'following'}/>
                             </div>
                             <Userinfo
-                                title={'Sarthak Ranjan Hota'}
-                                paragraph={'I\'m a passionate chef who loves creating delicious dishes with flair.'}
+                                title={userName}
+                                paragraph={userBio}
                             />
                             <UserButton onClick={handleOnClickIsOpen}/>
                         </div>
@@ -56,9 +74,7 @@ const Profile = () => {
                 centered={true}
                 footer={null}
             >
-                <div>
-                    <ImageUpload/>
-                </div>
+                <UserForm/>
             </Modal>
         </main>
     )

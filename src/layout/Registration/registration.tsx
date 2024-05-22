@@ -18,8 +18,40 @@ import people from "@assets/icons/people.svg";
 import et from "@assets/icons/mail.svg";
 // network
 import {registration} from "../../API/network.ts";
+import {useNavigate} from "react-router-dom";
+// toastify
+import {toast, ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Registration = () => {
+    const navigation = useNavigate();
+    const handleSuccessToasty = (message: string) => {
+        toast(<p>{message}</p>, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            type: "success"
+        })
+    }
+    const handleErrorToasty = (message: string) => {
+        toast(<p>{message}</p>, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            rtl: false,
+            pauseOnFocusLoss: true,
+            draggable: true,
+            pauseOnHover: true,
+            type: "error"
+        })
+    }
+
     return (
         <div className={styles.container}>
             <Header/>
@@ -39,11 +71,13 @@ const Registration = () => {
                     })}
                     onSubmit={(values) => {
                         if (values.password == values.repassword) {
-                            registration(values.email, values.username, values.password).then((response) => {
-                                console.log(response.status);
-                                console.log(response.data);
-                            }).catch((error) => {
-                                console.log(error);
+                            registration(values.email, values.username, values.password).then(() => {
+                                handleSuccessToasty("Success");
+                                setTimeout(() => {
+                                    navigation('/auth')
+                                }, 2500)
+                            }).catch(() => {
+                                handleErrorToasty("Unknown Error")
                             })
                         }
                     }}
@@ -123,6 +157,7 @@ const Registration = () => {
                 </Formik>
                 <SingLink text={'I don’t have an account?'} actionText={'Sign Up Now'} url={'/auth'}/>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
