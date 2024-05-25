@@ -11,7 +11,7 @@ import Card from "@components/card/UI/card.tsx";
 import styles from "./profile.module.scss";
 import image from "@assets/image/card3.jpg";
 import UserForm from "@components/userform/UI/userform.tsx";
-import {getUser} from "../../API/network.ts";
+import {getSaveRecipes, getUser} from "../../API/network.ts";
 import {getUserID} from "../../API/token.ts";
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {IUser, setData} from "@redux/reducer/user.ts";
@@ -34,6 +34,7 @@ const Profile = () => {
         const id = getUserID();
         if (id) {
             getUser(id).then((response) => handleFillUseData(response.data)).catch(e => console.log(e));
+            getSaveRecipes().then((res) => console.log(res)).catch((e) => console.log(e))
         }
     }, [])
     return (
@@ -64,7 +65,7 @@ const Profile = () => {
                         <text className={styles.saves__paragraph}>Saves recipes</text>
                     </div>
                     <div className={styles.cards}>
-                        {Array.from({length: 30}, () => (<Card image={image} title={''}/>))}
+                        {Array.from({length: 30}, () => (<Card id={'0'} image={image} title={''}/>))}
                     </div>
                 </div>
             </div>

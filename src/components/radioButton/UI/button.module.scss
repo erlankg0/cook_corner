@@ -1,7 +1,6 @@
 @import "src/styles/colors";
 
 .button {
-  background-color: $colorPrimary;
   width: 100%;
   padding: .5rem;
   text-align: center;
@@ -13,4 +12,12 @@
   &:active {
     transform: translateY(3px);
   }
+}
+
+.primary {
+  background-color: $colorPrimary;
+}
+
+.green {
+  background-color: #009d00;
 }

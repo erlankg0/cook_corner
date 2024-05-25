@@ -1,9 +1,8 @@
 import React from 'react';
-import {PlusOutlined} from '@ant-design/icons';
-import type {GetProp, UploadFile, UploadProps} from 'antd';
-import {Upload} from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload, UploadFile, UploadProps } from 'antd';
 
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+type FileType = Parameters<NonNullable<UploadProps['beforeUpload']>>[0];
 
 const getBase64 = (file: FileType): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -13,7 +12,7 @@ const getBase64 = (file: FileType): Promise<string> =>
         reader.onerror = (error) => reject(error);
     });
 
-const App: React.FC<{file: UploadFile | null, setFile: (file: UploadFile)=> void}> = ({file, setFile}) => {
+const PhotoUpload: React.FC<{ file: UploadFile | null, setFile: (file: UploadFile | null) => void }> = ({ file, setFile }) => {
 
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {
@@ -22,9 +21,8 @@ const App: React.FC<{file: UploadFile | null, setFile: (file: UploadFile)=> void
     };
 
     const handleChange: UploadProps['onChange'] = ({ fileList }) => {
-        // Ensure only one file is added
         if (fileList.length > 1) {
-            fileList.shift(); // Remove the extra files
+            fileList.shift();
         }
         setFile(fileList[0] || null);
     };
@@ -35,19 +33,18 @@ const App: React.FC<{file: UploadFile | null, setFile: (file: UploadFile)=> void
             <div style={{ marginTop: 8 }}>Upload Recipes Photo</div>
         </div>
     );
+
     return (
-        <>
-            <Upload
-                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                listType="picture-card"
-                fileList={file ? [file] : []}
-                onPreview={handlePreview}
-                onChange={handleChange}
-            >
-                {file ? null : uploadButton}
-            </Upload>
-        </>
+        <Upload
+            listType="picture-card"
+            fileList={file ? [file] : []}
+            onPreview={handlePreview}
+            onChange={handleChange}
+            beforeUpload={() => false} // Prevent automatic upload
+        >
+            {file ? null : uploadButton}
+        </Upload>
     );
 };
 
-export default App;
+export default PhotoUpload;

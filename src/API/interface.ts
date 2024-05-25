@@ -10,10 +10,9 @@ export interface ICategories {
 }
 
 export interface IIngredient {
-    id: number,
     name: string,
-    quantity: number,
-    unit_name: string
+    quantity: string,
+    unit_name: string,
 }
 
 export interface IRecipe {

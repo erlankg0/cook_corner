@@ -37,7 +37,7 @@ const Home = () => {
                     </nav>
                 </section>
                 <section className={styles.cards}>
-                    {recipes.map((recipe) => (<Card image={recipe.image} title={recipe.title}/>))}
+                    {recipes.map((recipe) => (<Card id={recipe.id} image={recipe.image} title={recipe.title}/>))}
                 </section>
             </div>
         </div>

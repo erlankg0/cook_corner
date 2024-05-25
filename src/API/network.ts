@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {clearTokens, getAccessToken} from "./token.ts";
 import {IIngredient} from "./interface.ts";
+import {UploadFile} from "antd";
 
 const instance = axios.create({
     baseURL: "https://atai-mamytov.click/cookscorner/",
@@ -34,7 +35,7 @@ instance.interceptors.response.use(
             originalRequest._retry = true;
             clearTokens();
             // Дополнительно можно перенаправить пользователя на страницу логина
-            // window.location.href = '/auth'; // Перенаправление на страницу логина
+            window.location.href = '/auth'; // Перенаправление на страницу логина
         }
         return Promise.reject(error);
     }
@@ -67,25 +68,78 @@ const registration = (email: string, username: string, password: string) => {
 const getCategories = () => {
     return instance.get('categories/');
 }
+// user
 
-const getRecipes = () => {
-    return instance.get('recipes/')
-}
 const getUser = (id: string) => {
     return instance.get(`users/profile/${id}/`)
 }
-const postRecipes = (title: string, author: number, description: string, category: number, cook__time: string, difficulty: string, ingredients: IIngredient[]) => {
+const getUsers = () => {
+    return instance.get(`users/profiles/`)
+}
+// recipes
+const getRecipes = () => {
+    return instance.get('recipes/')
+}
+
+const getSaveRecipes = () => {
+    return instance.get(`save-recipes/`)
+}
+
+const postSaveRecipe = (id: number) => {
+    return instance.post("/save-recipes/create/", {recipe: id})
+}
+
+const deleteSaveRecipes = (id: number) => {
+    return instance.delete(`save-recipes/delete/${id}/`);
+}
+// like
+
+const getLikeRecipes = () => {
+    return instance.get('like-recipes/')
+}
+const postLikeRecipes = (id: number) => {
+    return instance.post('like-recipes/create/', {recipe: id})
+}
+
+const deleteRecipes = (id: number) => {
+    return instance.delete(`like-recipes/delete/${id}/`)
+}
+// follow
+
+const getFollowUser = () => {
+    return instance.get('follow-user/');
+}
+
+const postFollowUser = (id: number) => {
+    return instance.post('follow-user/create/', {followed: id})
+}
+
+const deleteFollowUser = (id: number) => {
+    return instance.delete(`follow-user/delete/${id}/`)
+}
+
+
+const postRecipes = (title: string, author: string, description: string, category: number, cook__time: string, difficulty: string, ingredients: IIngredient[], image: UploadFile) => {
     const data = {
         title: title,
         author: author,
         description: description,
         category: category,
-        cook__time: cook__time,
+        cook_time: cook__time,
         difficulty: difficulty,
-        ingredients: ingredients
+        ingredients: ingredients,
+        image: image
     }
 
-    return instance.post('recipes/create', data);
+    return instance.post('recipes/create/', data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        }
+    });
 }
 export {auth, registration, postRecipes};
-export {getCategories, getRecipes, getUser};
+export {getUser, getUsers}
+export {getCategories, getRecipes};
+export {getSaveRecipes, postSaveRecipe, deleteSaveRecipes}
+export {getLikeRecipes, postLikeRecipes, deleteRecipes}
+export {getFollowUser, postFollowUser, deleteFollowUser}

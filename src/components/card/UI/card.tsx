@@ -1,13 +1,14 @@
 import React from "react";
 
 import {ICard} from "@components/card/interface.ts";
+import Action from "@components/action/UI/action.tsx";
+import {NavLink} from "react-router-dom";
 
 import styles from "./card.module.scss";
-import Action from "@components/action/UI/action.tsx";
 
-const Card: React.FC<ICard> = ({image, title}) => {
+const Card: React.FC<ICard> = ({image, title, id}) => {
     return (
-        <div className={styles.card}>
+        <NavLink to={`/detail/${id}`} className={styles.card}>
             <img className={styles.card__image} src={image} alt={'card image'}/>
             <div className={styles.card__content}>
                 <h2 className={styles.card__title}>{title}</h2>
@@ -17,7 +18,7 @@ const Card: React.FC<ICard> = ({image, title}) => {
                     <Action isDetail={false} type={"follow"} count={0}/>
                 </div>
             </div>
-        </div>
+        </NavLink>
     )
 }
 
