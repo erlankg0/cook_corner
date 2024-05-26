@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 
 const Author: React.FC<IAuthor> = ({ name, id}) => {
     return (
-        <NavLink to={`/detail/${id}`} className={styles.author}>
+        <NavLink to={`/author/${id}`} className={styles.author}>
             <img src={imageDefault} alt={'chiefs photo'} className={styles.author__image}/>
             <p className={styles.author__title}>{name}</p>
         </NavLink>

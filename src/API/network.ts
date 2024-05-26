@@ -1,7 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {clearTokens, getAccessToken} from "./token.ts";
+import {clearTokens, getAccessToken, getRefreshToken} from "./token.ts";
 import {IIngredient} from "./interface.ts";
-import {UploadFile} from "antd";
 
 const instance = axios.create({
     baseURL: "https://atai-mamytov.click/cookscorner/",
@@ -65,6 +64,27 @@ const registration = (email: string, username: string, password: string) => {
     });
 }
 
+const refresh = async () => {
+    const refreshToken = getRefreshToken();
+
+    if (refreshToken) {
+        try {
+            // Выполнение запроса на обновление токена
+            const response = await instance.post("users/login/refresh/", {refresh: refreshToken});
+
+            // Возврат нового токена
+            return response.data.access;
+        } catch (error) {
+            console.error('Ошибка при обновлении токена:', error);
+            throw error;
+        }
+    } else {
+        // Если нет refresh token, возможно, пользователь должен снова войти в систему
+        throw new Error('Refresh token отсутствует');
+    }
+};
+
+
 const getCategories = () => {
     return instance.get('categories/');
 }
@@ -76,9 +96,23 @@ const getUser = (id: string) => {
 const getUsers = () => {
     return instance.get(`users/profiles/`)
 }
+
+const putUserProfile = (username: string, user_bio: string) => {
+    const data = {username, user_bio}
+    return instance.put("users/update-profile/", data, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    });
+}
+
 // recipes
 const getRecipes = () => {
     return instance.get('recipes/')
+}
+
+const getDetailRecipe = (id: string) => {
+    return instance.get(`recipes/${id}/`)
 }
 
 const getSaveRecipes = () => {
@@ -118,28 +152,35 @@ const deleteFollowUser = (id: number) => {
     return instance.delete(`follow-user/delete/${id}/`)
 }
 
-
-const postRecipes = (title: string, author: string, description: string, category: number, cook__time: string, difficulty: string, ingredients: IIngredient[], image: UploadFile) => {
-    const data = {
-        title: title,
-        author: author,
-        description: description,
-        category: category,
-        cook_time: cook__time,
-        difficulty: difficulty,
-        ingredients: ingredients,
-        image: image
-    }
-
-    return instance.post('recipes/create/', data, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        }
+const postRecipes = (
+    title: string,
+    author: string,
+    description: string,
+    category: number,
+    cook_time: string,
+    difficulty: string,
+    ingredients: IIngredient[],
+) => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('description', description);
+    formData.append('category', String(category));
+    formData.append('cook_time', cook_time);
+    formData.append('difficulty', difficulty);
+    ingredients.forEach((ingredient, index) => {
+        formData.append(`ingredients[${index}][name]`, ingredient.name);
+        formData.append(`ingredients[${index}][quantity]`, ingredient.quantity);
+        formData.append(`ingredients[${index}][unit_name]`, ingredient.unit_name);
     });
-}
+
+    console.log('Sending data:', [...formData]);
+    return instance.post('recipes/create/', formData,);
+};
+
 export {auth, registration, postRecipes};
-export {getUser, getUsers}
-export {getCategories, getRecipes};
+export {getUser, getUsers, refresh, putUserProfile}
+export {getCategories, getRecipes, getDetailRecipe};
 export {getSaveRecipes, postSaveRecipe, deleteSaveRecipes}
 export {getLikeRecipes, postLikeRecipes, deleteRecipes}
 export {getFollowUser, postFollowUser, deleteFollowUser}

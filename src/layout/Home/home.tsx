@@ -5,6 +5,7 @@ import styles from "./home.module.scss";
 import {useEffect, useState} from "react";
 import {getCategories, getRecipes} from "../../API/network.ts";
 import {ICategories, IRecipe} from "../../API/interface.ts";
+import imageCard from "@assets/image/card3.jpg"
 
 const Home = () => {
     const [categories, setCategories] = useState<ICategories[]>([])
@@ -31,13 +32,13 @@ const Home = () => {
                     <h2 className={styles.category__title}>Category</h2>
                     <nav className={styles.category__nav}>
                         {categories.map((category) => (
-                            <div className={`${styles.category__link} ${styles.active}`}>{category.name}</div>)
+                            <div className={styles.category__link}>{category.name}</div>)
                         )}
-                        <div className={`${styles.category__link} ${styles.active}`}>Breakfast</div>
                     </nav>
                 </section>
                 <section className={styles.cards}>
-                    {recipes.map((recipe) => (<Card id={recipe.id} image={recipe.image} title={recipe.title}/>))}
+                    {recipes.map((recipe) => (
+                        <Card id={recipe.id} image={recipe.image ? recipe.image : imageCard} title={recipe.title}/>))}
                 </section>
             </div>
         </div>

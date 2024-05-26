@@ -17,6 +17,7 @@ import {IAuthor} from "@components/author/interface.ts";
 
 import image from "@assets/image/card2.jpg";
 import FormModal from "@components/formModal/UI/form.tsx";
+import {getRecipes, getUsers} from "../../API/network.ts";
 
 const SearchPage = () => {
     // redux
@@ -63,7 +64,16 @@ const SearchPage = () => {
         const debounce = setTimeout(() => {
             if (chefsSelect || recipesSelect) {
                 setFilteredResultsAuthors(handleFilterAuthor(search, authors));
-                setFilteredResultsCards(handleFilterCard(search, data.results));
+                let chefs;
+                let cards;
+                getRecipes().then(response => {
+                    cards = response.data
+                });
+                setFilteredResultsCards(handleFilterCard(search, cards ? cards : []));
+                getUsers().then(response => {
+                    chefs = response.data
+                });
+                setFilteredResultsAuthors(handleFilterAuthor(search, chefs ? chefs : []));
             }
         }, 300);
 

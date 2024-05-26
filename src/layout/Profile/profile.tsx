@@ -33,10 +33,13 @@ const Profile = () => {
     useEffect(() => {
         const id = getUserID();
         if (id) {
-            getUser(id).then((response) => handleFillUseData(response.data)).catch(e => console.log(e));
+            getUser(id).then((response) => {
+                handleFillUseData(response.data)
+                console.log(response.data)
+            }).catch(e => console.log(e));
             getSaveRecipes().then((res) => console.log(res)).catch((e) => console.log(e))
         }
-    }, [])
+    }, [userName, userBio, handleFillUseData])
     return (
         <main className={styles.content}>
             <Aside/>

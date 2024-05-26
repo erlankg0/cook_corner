@@ -3,6 +3,7 @@ import ImageUpload from "@components/userPhotoUpload/UI/userimageupload.tsx";
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setUserBio, setUserName} from "@redux/reducer/user.ts";
 import React, {useState} from "react";
+import {putUserProfile} from "../../../API/network.ts";
 
 const UserForm = () => {
     const dispatch = useAddDispatch();
@@ -17,13 +18,15 @@ const UserForm = () => {
     const handleOnChangeUserBIO = (text: string) => {
         dispatch(setUserBio(text));
     }
-
+    const handleOnSubmit = () => {
+        putUserProfile(username, user_bio).then(r => console.log(r)).catch(e => console.log(e))
+    }
     const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
     return (
         <form className={styles.form} onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            console.log(selectedFiles);
-
+            handleOnSubmit();
+            console.log(selectedFiles)
         }}>
             <div className={styles.field}>
                 <label className={styles.field__label}>Change your name</label>

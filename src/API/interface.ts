@@ -21,6 +21,7 @@ export interface IRecipe {
     author: number,
     author_name: string,
     description: string,
+    difficulty: "Easy" | "Medium" | "Hard",
     category: string,
     cook__time: Difficulty,
     ingredients: IIngredient[],

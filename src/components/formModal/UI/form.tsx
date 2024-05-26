@@ -21,6 +21,7 @@ const FormModal = () => {
     const inputRef = useRef<InputRef>(null);
     const [ingredients, setIngredients] = useState<{ name: string, quantity: string, unit_name: string }[]>([]);
     const [ingredientNames, setIngredientNames] = useState<string[]>(['']);
+
     const handleIngredientNameChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const newIngredientNames = [...ingredientNames];
         newIngredientNames[index] = event.target.value;
@@ -56,30 +57,10 @@ const FormModal = () => {
 
     const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        console.log(title);
-        console.log(description);
-        console.log(ingredients)
-        console.log('Difficulty:', difficulty);
-        console.log('Selected categories:', selectedCategories);
-        if (file && file.originFileObj) {
-            console.log('File:', file.originFileObj);
-        }
-        console.log(preparation);
-        console.log({
-            title: title,
-            author: getUserID(),
-            description: description,
-            category: selectedCategories,
-            cook_time: preparation,
-            difficulty: difficulty,
-            ingredients: ingredients,
-            image: file
-        })
         const author = getUserID();
-
-        if (author && selectedCategories && ingredients && file) {
-            postRecipes(title, author, description, selectedCategories, preparation, difficulty, ingredients, file).then((r) => console.log(r)).catch(e => console.error(e))
+        console.log(ingredients)
+        if (author && selectedCategories && ingredients) {
+            postRecipes(title, author, description, selectedCategories, preparation, difficulty, ingredients).then((r) => console.log(r)).catch(e => console.error(e))
         }
     };
     const handleSelectChange = (value: string, ingredientName: string) => {

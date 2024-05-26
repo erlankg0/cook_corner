@@ -3,3 +3,9 @@
   font-size: 1.6rem;
   line-height: 2.4rem;
 }
+
+.box {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
