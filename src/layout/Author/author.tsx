@@ -1,27 +1,32 @@
 import styles from "./author.module.scss";
 import Aside from "@components/aside/UI/aside.tsx";
 import Card from "@components/card/UI/card.tsx";
-import cardImage from "@assets/image/card3.jpg"
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import {useNavigate, useParams} from "react-router-dom";
 import personImage from "@assets/image/userpic.png"
 import UserCounter from "@components/usercounter/UI/usercounter.tsx";
 import Button from "@components/button/UI/button.tsx";
 import {useEffect, useState} from "react";
-import {getUser} from "../../API/network.ts";
+import {getRecipes, getUser} from "../../API/network.ts";
 import {IAuthor} from "@components/author/interface.ts";
+import {IRecipe} from "../../API/interface.ts";
 
 const Author = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [author, setAuthor] = useState<IAuthor>()
+    const [recipes, setRecipes] = useState<IRecipe[]>([])
+
     const handleOnClickPrev = () => {
         navigate(-1);
     }
 
     useEffect(() => {
         if (id) {
-            getUser(id).then((res) => setAuthor(res.data))
+            getUser(id).then((authorResponse) => {
+                setAuthor(authorResponse.data);
+                return getRecipes(undefined, authorResponse.data.username);
+            }).then(recipesResponse => setRecipes(recipesResponse.data.results));
         }
     }, [id])
 
@@ -52,15 +57,7 @@ const Author = () => {
 
                     </section>
                     <section className={styles.detail__cards}>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
-                        <Card id={1} image={cardImage} title={'aa'}/>
+                        {recipes && recipes.map((recipe)=>(<Card {...recipe}/>))}
                     </section>
                 </div>
             )}

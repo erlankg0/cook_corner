@@ -17,7 +17,7 @@ const Detail = () => {
         if (id) {
             getDetailRecipe(id).then((r) => setDetail(r.data));
         }
-    })
+    }, [])
     return (
         <div className={styles.content}>
             <Aside/>
@@ -37,8 +37,13 @@ const Detail = () => {
                             <p className={styles.times__level}>{detail.difficulty}</p>
                         </div>
                         <div className={styles.actions}>
-                            <Action type={'like'} count={0} isDetail={true}/>
-                            <Action type={'follow'} count={1} isDetail={false}/>
+                            {id && (
+                                <>
+                                    <Action id={id} type={'like'} count={0} isDetail={true}/>
+                                    <Action id={id} type={'follow'} count={1} isDetail={false}/>
+                                </>
+                            )}
+
                         </div>
                         <div className={styles.information}>
                             <p className={styles.information__description}>Description</p>

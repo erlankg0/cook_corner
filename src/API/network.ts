@@ -107,9 +107,11 @@ const putUserProfile = (username: string, user_bio: string) => {
 }
 
 // recipes
-const getRecipes = (category?: number) => {
+const getRecipes = (category?: number, author__name?: string) => {
     if (category) {
         return instance.get(`recipes/?category_id=${category}`)
+    } else if (author__name) {
+        return instance.get(`recipes/?author_username=${author__name}`)
     }
     return instance.get(`recipes/`)
 
@@ -123,7 +125,7 @@ const getSaveRecipes = () => {
     return instance.get(`save-recipes/`)
 }
 
-const postSaveRecipe = (id: number) => {
+const postSaveRecipe = (id: string) => {
     return instance.post("/save-recipes/create/", {recipe: id})
 }
 
@@ -135,7 +137,7 @@ const deleteSaveRecipes = (id: number) => {
 const getLikeRecipes = () => {
     return instance.get('like-recipes/')
 }
-const postLikeRecipes = (id: number) => {
+const postLikeRecipes = (id: string) => {
     return instance.post('like-recipes/create/', {recipe: id})
 }
 

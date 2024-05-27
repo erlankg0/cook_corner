@@ -79,7 +79,7 @@ export const authors = [{
 ]
 
 export interface ICard {
-    id: number | string,
+    id: string,
     title: string,
     author: number,
     author_name: string,

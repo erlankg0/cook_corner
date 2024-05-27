@@ -1,5 +1,6 @@
 export interface IAction {
     type: "like" | "follow",
     count: number,
-    isDetail: boolean;
+    isDetail: boolean,
+    id: string
 }

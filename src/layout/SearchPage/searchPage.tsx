@@ -11,7 +11,7 @@ import Author from "@components/author/UI/author.tsx";
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setSearch} from "@redux/reducer/search.ts";
 
-import styles from "./search.module.scss"
+import styles from "./search.module.scss";
 import {ICard} from "./data.ts";
 import {IAuthor} from "@components/author/interface.ts";
 
@@ -20,15 +20,13 @@ import FormModal from "@components/formModal/UI/form.tsx";
 import {getRecipes, getUsers} from "../../API/network.ts";
 
 const SearchPage = () => {
-    // redux
     const dispatch = useAddDispatch();
-    const search = useAppSelector(state => state.search.search);
+    const search = useAppSelector((state) => state.search.search);
 
     const handleSearchOnChange = (value: string): void => {
         dispatch(setSearch(value));
-    }
+    };
 
-    // business
     const [chefsSelect, setChefsSelect] = useState<boolean>(true);
     const [recipesSelect, setRecipesSelect] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
@@ -36,13 +34,14 @@ const SearchPage = () => {
     const handleOnClickCategory = () => {
         setChefsSelect(!chefsSelect);
         setRecipesSelect(!recipesSelect);
-    }
+    };
 
     const handleOnClickModule = () => {
         setActive(!active);
-    }
+    };
 
-    // live search
+    const [allCards, setAllCards] = useState<ICard[]>([]);
+    const [allAuthors, setAllAuthors] = useState<IAuthor[]>([]);
     const [filteredResultsCards, setFilteredResultsCards] = useState<ICard[]>([]);
     const [filteredResultsAuthors, setFilteredResultsAuthors] = useState<IAuthor[]>([]);
 
@@ -50,67 +49,79 @@ const SearchPage = () => {
         if (!value) {
             return list;
         }
-        return list.filter(({title}) => title.toLowerCase().includes(value.toLowerCase()));
-    }
+        return list.filter(({ title }) =>
+            title.toLowerCase().includes(value.toLowerCase())
+        );
+    };
 
     const handleFilterAuthor = (value: string, list: IAuthor[]) => {
         if (!value) {
-            return list
+            return list;
         }
-        return list.filter(({username}) => username.toLowerCase().includes(value.toLowerCase()));
-    }
+        return list.filter(({ username }) =>
+            username.toLowerCase().includes(value.toLowerCase())
+        );
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [recipesResponse, usersResponse] = await Promise.all([
+                    getRecipes(),
+                    getUsers(),
+                ]);
+                setAllCards(recipesResponse.data.results);
+                setAllAuthors(usersResponse.data.results);
+            } catch (error) {
+                console.error("Failed to fetch data", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const debounce = setTimeout(() => {
-            let chefs;
-            let cards;
             if (chefsSelect || recipesSelect) {
-                getRecipes().then(response => {
-                    cards = response.data.results;
-                    setFilteredResultsCards(cards)
-                });
-                if (search) {
-                    setFilteredResultsCards(handleFilterCard(search, cards ? cards : []));
+                if (recipesSelect) {
+                    setFilteredResultsCards(handleFilterCard(search, allCards));
                 }
-                getUsers().then(response => {
-                    chefs = response.data.results
-                    setFilteredResultsAuthors(chefs);
-                });
-                if (search) {
-                    setFilteredResultsAuthors(handleFilterAuthor(search, chefs ? chefs : []));
+                if (chefsSelect) {
+                    setFilteredResultsAuthors(handleFilterAuthor(search, allAuthors));
                 }
             }
-
         }, 300);
 
         return () => clearTimeout(debounce);
-    }, [search, chefsSelect, recipesSelect]);
+    }, [search, chefsSelect, recipesSelect, allCards, allAuthors]);
 
     return (
         <main className={styles.container}>
-            <Aside/>
+            <Aside />
             <section className={styles.content}>
                 <div className={styles.content__header}>
-                    <h2 className={styles.title}>What to eat today ?</h2>
+                    <h2 className={styles.title}>What to eat today?</h2>
                     <div className={styles.categories}>
-                        <Category selected={chefsSelect} text={'Chefs'} onClick={handleOnClickCategory}/>
-                        <Category selected={recipesSelect} text={'Recipes'} onClick={handleOnClickCategory}/>
+                        <Category selected={chefsSelect} text={"Recipes"} onClick={handleOnClickCategory} />
+                        <Category selected={recipesSelect} text={"Chefs"} onClick={handleOnClickCategory} />
                     </div>
-                    <SearchInput placeholder={'Поиск...'} search={search} onChange={handleSearchOnChange}/>
+                    <SearchInput placeholder={"Поиск..."} search={search} onChange={handleSearchOnChange} />
                 </div>
                 <div className={styles.content__body}>
                     <h2 className={styles.results}>Search Result</h2>
                     <div className={styles.cards}>
-                        {!recipesSelect && filteredResultsCards.map((card) => (
-                            <Card key={card.id} {...card} image={image}/>))}
+                        {recipesSelect && filteredResultsCards.map((card) => (
+                            <Card key={card.id} {...card} image={image} />
+                        ))}
                     </div>
                     <div className={styles.authors}>
-                        {!chefsSelect && filteredResultsAuthors.map((author) => (
-                            <Author key={author.id} {...author}/>))}
+                        {chefsSelect && filteredResultsAuthors.map((author) => (
+                            <Author key={author.id} {...author} />
+                        ))}
                     </div>
                 </div>
                 <div className={styles.content__footer}>
-                    <ButtonRecipes onClick={handleOnClickModule}/>
+                    <ButtonRecipes onClick={handleOnClickModule} />
                 </div>
                 <Modal
                     open={active}
@@ -118,11 +129,11 @@ const SearchPage = () => {
                     centered={true}
                     footer={null}
                 >
-                    <FormModal/>
+                    <FormModal />
                 </Modal>
             </section>
         </main>
-    )
-}
+    );
+};
 
 export default SearchPage;

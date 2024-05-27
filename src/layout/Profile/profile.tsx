@@ -9,12 +9,12 @@ import UserButton from "@components/userbutton/UI/userbutton.tsx";
 import Card from "@components/card/UI/card.tsx";
 
 import styles from "./profile.module.scss";
-import image from "@assets/image/card3.jpg";
 import UserForm from "@components/userform/UI/userform.tsx";
 import {getSaveRecipes, getUser} from "../../API/network.ts";
 import {getUserID} from "../../API/token.ts";
 import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {IUser, setData} from "@redux/reducer/user.ts";
+import {IRecipe} from "../../API/interface.ts";
 
 const Profile = () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -23,6 +23,8 @@ const Profile = () => {
     const count_recipes = useAppSelector(state => state.user.count_recipes);
     const userName = useAppSelector(state => state.user.username);
     const userBio = useAppSelector(state => state.user.user_bio);
+    const [recipes, setRecipes] = useState<IRecipe[]>([])
+
     const handleOnClickIsOpen = () => {
         setOpen(!open);
     }
@@ -37,9 +39,9 @@ const Profile = () => {
                 handleFillUseData(response.data)
                 console.log(response.data)
             }).catch(e => console.log(e));
-            getSaveRecipes().then((res) => console.log(res)).catch((e) => console.log(e))
+            getSaveRecipes().then((res) => setRecipes(res.data)).catch((e) => console.log(e))
         }
-    }, [userName, userBio, handleFillUseData])
+    }, [])
     return (
         <main className={styles.content}>
             <Aside/>
@@ -68,7 +70,7 @@ const Profile = () => {
                         <text className={styles.saves__paragraph}>Saves recipes</text>
                     </div>
                     <div className={styles.cards}>
-                        {Array.from({length: 30}, () => (<Card id={'0'} image={image} title={''}/>))}
+                        {recipes && recipes.map((recipe) => (<Card {...recipe}/>))}
                     </div>
                 </div>
             </div>
