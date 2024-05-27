@@ -82,6 +82,7 @@ export interface ICard {
     id: number | string,
     title: string,
     author: number,
+    author_name: string,
     category: number,
     image: string,
     likes_count: string,

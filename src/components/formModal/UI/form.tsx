@@ -2,11 +2,12 @@ import PhotoUpload from "@components/photoUpload/UI/photoUpload.tsx";
 import {Button, Input, InputRef, Select, SelectProps, Space, UploadFile} from "antd";
 import styles from "./form.module.scss";
 import Count from "@components/count/UI/count.tsx";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import RadioButton from "@components/radioButton/UI/button.tsx";
 import {getUserID} from "../../../API/token.ts";
-import {postRecipes} from "../../../API/network.ts";
+import {getCategories, postRecipes} from "../../../API/network.ts";
+import {ICategories} from "../../../API/interface.ts";
 
 const FormModal = () => {
     const [file, setFile] = useState<UploadFile | null>(null);
@@ -21,6 +22,14 @@ const FormModal = () => {
     const inputRef = useRef<InputRef>(null);
     const [ingredients, setIngredients] = useState<{ name: string, quantity: string, unit_name: string }[]>([]);
     const [ingredientNames, setIngredientNames] = useState<string[]>(['']);
+    const [categories, setCategories] = useState<ICategories[]>([])
+
+
+    useEffect(() => {
+        getCategories().then((response) => {
+            setCategories(response.data)
+        })
+    },[])
 
     const handleIngredientNameChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const newIngredientNames = [...ingredientNames];
@@ -46,9 +55,9 @@ const FormModal = () => {
         console.log('Selected categories:', value);
     };
 
-    const options: SelectProps['options'] = ["Breakfast", "Lunch", "Dinner"].map((category, index) => ({
-        label: category,
-        value: index
+    const options: SelectProps['options'] = categories.map((category) => ({
+        label: category.name,
+        value: category.id
     }));
 
     const handleDifficultyChange = (level: "Easy" | "Medium" | "Hard") => {
@@ -119,7 +128,7 @@ const FormModal = () => {
                                     </Space>
                                 </>
                             )}
-                            options={items.map((item) => ({label: item, value: item}))}
+                            options={items.map((item, index) => ({label: item, value: index}))}
                         />
                         <Count onClick={() => {
                             setCount(count + 1)

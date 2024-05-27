@@ -23,7 +23,7 @@ export interface IRecipe {
     description: string,
     difficulty: "Easy" | "Medium" | "Hard",
     category: string,
-    cook__time: Difficulty,
+    cook_time: Difficulty,
     ingredients: IIngredient[],
     image: string,
     likes_count: string,

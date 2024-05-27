@@ -12,7 +12,7 @@ import {useAddDispatch, useAppSelector} from "@redux/hooks.ts";
 import {setSearch} from "@redux/reducer/search.ts";
 
 import styles from "./search.module.scss"
-import {authors, cards as data, ICard} from "./data.ts";
+import {ICard} from "./data.ts";
 import {IAuthor} from "@components/author/interface.ts";
 
 import image from "@assets/image/card2.jpg";
@@ -43,8 +43,8 @@ const SearchPage = () => {
     }
 
     // live search
-    const [filteredResultsCards, setFilteredResultsCards] = useState<ICard[]>(data.results);
-    const [filteredResultsAuthors, setFilteredResultsAuthors] = useState<IAuthor[]>(authors);
+    const [filteredResultsCards, setFilteredResultsCards] = useState<ICard[]>([]);
+    const [filteredResultsAuthors, setFilteredResultsAuthors] = useState<IAuthor[]>([]);
 
     const handleFilterCard = (value: string, list: ICard[]) => {
         if (!value) {
@@ -57,24 +57,30 @@ const SearchPage = () => {
         if (!value) {
             return list
         }
-        return list.filter(({name}) => name.toLowerCase().includes(value.toLowerCase()));
+        return list.filter(({username}) => username.toLowerCase().includes(value.toLowerCase()));
     }
 
     useEffect(() => {
         const debounce = setTimeout(() => {
+            let chefs;
+            let cards;
             if (chefsSelect || recipesSelect) {
-                setFilteredResultsAuthors(handleFilterAuthor(search, authors));
-                let chefs;
-                let cards;
                 getRecipes().then(response => {
-                    cards = response.data
+                    cards = response.data.results;
+                    setFilteredResultsCards(cards)
                 });
-                setFilteredResultsCards(handleFilterCard(search, cards ? cards : []));
+                if (search) {
+                    setFilteredResultsCards(handleFilterCard(search, cards ? cards : []));
+                }
                 getUsers().then(response => {
-                    chefs = response.data
+                    chefs = response.data.results
+                    setFilteredResultsAuthors(chefs);
                 });
-                setFilteredResultsAuthors(handleFilterAuthor(search, chefs ? chefs : []));
+                if (search) {
+                    setFilteredResultsAuthors(handleFilterAuthor(search, chefs ? chefs : []));
+                }
             }
+
         }, 300);
 
         return () => clearTimeout(debounce);

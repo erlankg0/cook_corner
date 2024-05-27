@@ -33,7 +33,7 @@ const Detail = () => {
                             <p className={styles.header__paragraph}>{detail.author_name}</p>
                         </div>
                         <div className={styles.times}>
-                            <div className={styles.times__time}>{detail.cook__time} min</div>
+                            <div className={styles.times__time}>{detail.cook_time}</div>
                             <p className={styles.times__level}>{detail.difficulty}</p>
                         </div>
                         <div className={styles.actions}>

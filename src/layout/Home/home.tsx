@@ -10,14 +10,25 @@ import imageCard from "@assets/image/card3.jpg"
 const Home = () => {
     const [categories, setCategories] = useState<ICategories[]>([])
     const [recipes, setRecipes] = useState<IRecipe[]>([])
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
     useEffect(() => {
         getCategories().then((res) => {
             setCategories(res.data);
+            if (res.data.length > 1) {
+                setActiveCategory(res.data[0].name)
+            }
         }).catch((er) => console.log(er))
         getRecipes().then((response) => {
             setRecipes(response.data.results)
         })
-    }, [categories])
+    }, [])
+    const handleCategoryClick = (category: ICategories) => {
+        setActiveCategory(category.name);
+        getRecipes(category.id).then((res) => {
+            setRecipes(res.data.results)
+        });
+    };
 
     return (
         <div className={styles.content}>
@@ -31,14 +42,20 @@ const Home = () => {
                 <section className={styles.category}>
                     <h2 className={styles.category__title}>Category</h2>
                     <nav className={styles.category__nav}>
-                        {categories.map((category) => (
-                            <div className={styles.category__link}>{category.name}</div>)
-                        )}
+                        {categories && categories.map((category) => (
+                            <div
+                                key={category.name}
+                                className={`${styles.category__link} ${activeCategory === category.name ? styles.active : ''}`}
+                                onClick={() => handleCategoryClick(category)}
+                            >
+                                {category.name}
+                            </div>
+                        ))}
                     </nav>
                 </section>
                 <section className={styles.cards}>
-                    {recipes.map((recipe) => (
-                        <Card id={recipe.id} image={recipe.image ? recipe.image : imageCard} title={recipe.title}/>))}
+                    {recipes.length >= 1 && recipes.map((recipe) => (
+                        <Card key={recipe.id} id={recipe.id} image={recipe.image ? recipe.image : imageCard} title={recipe.title}/>))}
                 </section>
             </div>
         </div>

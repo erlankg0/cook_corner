@@ -107,8 +107,12 @@ const putUserProfile = (username: string, user_bio: string) => {
 }
 
 // recipes
-const getRecipes = () => {
-    return instance.get('recipes/')
+const getRecipes = (category?: number) => {
+    if (category) {
+        return instance.get(`recipes/?category_id=${category}`)
+    }
+    return instance.get(`recipes/`)
+
 }
 
 const getDetailRecipe = (id: string) => {
