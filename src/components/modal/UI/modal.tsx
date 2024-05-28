@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {IModal} from "@components/modal/interface.ts";
 import styles from "./modal.module.scss"
 import PhotoUpload from "@components/photoUpload/UI/photoUpload.tsx";
-import {UploadFile} from "antd";
+import {RcFile} from "antd/lib/upload";
 
 const Modals: React.FC<IModal> = ({active, setActive}) => {
-    const [file, setFile] = useState<UploadFile | null>(null);
+    const [file, setFile] = useState<RcFile | null>(null);
 
     return (
         <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} onClick={() => setActive(false)}>
