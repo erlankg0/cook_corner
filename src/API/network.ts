@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {clearTokens, getAccessToken, getRefreshToken} from "./token.ts";
 import {IIngredient} from "./interface.ts";
+import {RcFile} from "antd/lib/upload";
 
 const instance = axios.create({
     baseURL: "https://atai-mamytov.click/cookscorner/",
@@ -62,6 +63,9 @@ const registration = (email: string, username: string, password: string) => {
             'Content-Type': 'multipart/form-data'
         }
     });
+}
+const logout = () => {
+    return instance.post('users/logout/', {refresh_token: getRefreshToken()})
 }
 
 const refresh = async () => {
@@ -184,9 +188,24 @@ const postRecipes = (
     return instance.post('recipes/create/', formData,);
 };
 
+const postImageRecipe = (id: number, image: RcFile) => {
+    const formData = new FormData();
+    formData.append('recipe', id.toString()); // Преобразуем id в строку
+    // Предполагается, что `image` является объектом UploadFile из antd
+    console.log(image)
+    if (image) {
+        formData.append('image', image);
+    }
+    return instance.post('recipes/create-image/', {
+        recipe: id,
+        image: image,
+    }, {headers: {"Content-Type": "multipart/form-data"}})
+}
+
+
 export {auth, registration, postRecipes};
-export {getUser, getUsers, refresh, putUserProfile}
+export {getUser, getUsers, refresh, putUserProfile, logout}
 export {getCategories, getRecipes, getDetailRecipe};
 export {getSaveRecipes, postSaveRecipe, deleteSaveRecipes}
-export {getLikeRecipes, postLikeRecipes, deleteRecipes}
+export {getLikeRecipes, postLikeRecipes, deleteRecipes, postImageRecipe}
 export {getFollowUser, postFollowUser, deleteFollowUser}

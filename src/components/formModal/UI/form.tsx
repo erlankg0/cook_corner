@@ -1,16 +1,17 @@
 import PhotoUpload from "@components/photoUpload/UI/photoUpload.tsx";
-import {Button, Input, InputRef, Select, SelectProps, Space, UploadFile} from "antd";
+import {Button, Input, InputRef, Select, SelectProps, Space} from "antd";
 import styles from "./form.module.scss";
 import Count from "@components/count/UI/count.tsx";
 import React, {useEffect, useRef, useState} from "react";
 import {PlusOutlined} from "@ant-design/icons";
 import RadioButton from "@components/radioButton/UI/button.tsx";
 import {getUserID} from "../../../API/token.ts";
-import {getCategories, postRecipes} from "../../../API/network.ts";
+import {getCategories, postImageRecipe, postRecipes} from "../../../API/network.ts";
 import {ICategories} from "../../../API/interface.ts";
+import {RcFile} from "antd/lib/upload";
 
 const FormModal = () => {
-    const [file, setFile] = useState<UploadFile | null>(null);
+    const [file, setFile] = useState<RcFile | null>(null);
     const [count, setCount] = useState<number>(1);
     const [items, setItems] = useState(['0.1 kg', '0.2 kg', '0.3 kg', '0.4 kg', '0.5 kg', '1.0 kg', '1.5 kg']);
     const [name, setName] = useState('');
@@ -29,7 +30,7 @@ const FormModal = () => {
         getCategories().then((response) => {
             setCategories(response.data)
         })
-    },[])
+    }, [])
 
     const handleIngredientNameChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const newIngredientNames = [...ingredientNames];
@@ -69,7 +70,12 @@ const FormModal = () => {
         const author = getUserID();
         console.log(ingredients)
         if (author && selectedCategories && ingredients) {
-            postRecipes(title, author, description, selectedCategories, preparation, difficulty, ingredients).then((r) => console.log(r)).catch(e => console.error(e))
+            postRecipes(title, author, description, selectedCategories, preparation, difficulty, ingredients).then((response) => {
+                console.log(response.data.id);
+                if (file) {
+                    return postImageRecipe(response.data.id, file)
+                }
+            }).then(imageResponse => console.log(imageResponse)).catch(e => console.error(e))
         }
     };
     const handleSelectChange = (value: string, ingredientName: string) => {

@@ -16,7 +16,7 @@ export interface IIngredient {
 }
 
 export interface IRecipe {
-    id: number,
+    id: string,
     title: string,
     author: number,
     author_name: string,
